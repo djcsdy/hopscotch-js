@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project default="build">
+  
+  <path id="jcoffeescript.classpath" path="lib/jcoffeescript-0.7.2-djc.jar"/>
+  <property name="jcoffeescript.main" value="org.jcoffeescript.Main"/>
+  
+  <macrodef name="compile-coffeescript">
+    <attribute name="src"/>
+    <attribute name="dest"/>
+    <sequential>
+      <java classpathref="jcoffeescript.classpath"
+          classname="${jcoffeescript.main}"
+          input="@{src}" output="@{dest}"
+          logError="true" failOnError="true"/>
+    </sequential>
+  </macrodef>
+  
+  <target name="build">
+    <compile-coffeescript src="gfw.coffee" dest="gfw.js"/>
+    <compile-coffeescript src="demo.coffee" dest="demo.js"/>
+  </target>
+  
+  <target name="clean">
+    <delete file="gfw.js"/>
+    <delete file="demo.js"/>
+  </target>
+  
+</project>
