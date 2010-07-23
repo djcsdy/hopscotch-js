@@ -53,6 +53,8 @@ playfield: () ->
       y: undefined
       velocityX: 0
       velocityY: 0
+      accelerationX: 0
+      accelerationY: 0
       actor: undefined
       painter: undefined
       thisSprite: {
@@ -61,6 +63,8 @@ playfield: () ->
           prevY: y
           x: x + velocityX
           y: y + velocityY
+          velocityX: velocityX + accelerationX
+          velocityY: velocityY + accelerationY
           actor?.act()
           return thisSprite
         actor: (actor2) ->
@@ -87,6 +91,10 @@ playfield: () ->
         velocity: (velocityX2, velocityY2) ->
           velocityX: velocityX2
           velocityY: velocityY2
+          return thisSprite
+        acceleration: (accelerationX2, accelerationY2) ->
+          accelerationX: accelerationX2
+          accelerationY: accelerationY2
           return thisSprite
       }
       sprites.push(thisSprite)
