@@ -97,15 +97,20 @@ imagePainter: (uri) ->
   image: new Image();
   image.src: uri
   compositeOperation: "source-over"
+  alpha: 1
   return thisPainter: {
     paint: (context, x, y) ->
       context.save()
       context.globalCompositeOperation: compositeOperation
+      context.globalAlpha: alpha
       context.drawImage(image, x, y)
       context.restore()
       return thisPainter
     compositeOperation: (compositeOperation2) ->
       compositeOperation: compositeOperation2
+      return thisPainter
+    alpha: (alpha2) ->
+      alpha: alpha2
       return thisPainter
   }
 
