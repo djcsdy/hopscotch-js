@@ -16,12 +16,12 @@
   </macrodef>
   
   <target name="build">
-    <compile-coffeescript src="gfw.coffee" dest="gfw.js"/>
+    <compile-coffeescript src="hopscotch.coffee" dest="hopscotch.js"/>
     <compile-coffeescript src="demo.coffee" dest="demo.js"/>
   </target>
   
   <target name="clean">
-    <delete file="gfw.js"/>
+    <delete file="hopscotch.js"/>
     <delete file="demo.js"/>
   </target>
   
