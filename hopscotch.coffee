@@ -65,7 +65,7 @@ playfield: () ->
           y: y + velocityY
           velocityX: velocityX + accelerationX
           velocityY: velocityY + accelerationY
-          actor?.act()
+          if actor? then actor()
           return thisSprite
         actor: (actor2) ->
           actor: actor2

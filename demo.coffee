@@ -19,10 +19,8 @@ for i in [0...200]
       position(x, y).
       velocity(vx, vy).
       acceleration(0, gravity).
-      actor({
-        act: () ->
+      actor(() ->
           alpha: alpha - fadeRate
           if alpha < 0 then alpha: 0
-          painter.alpha(alpha)
-      })
+          painter.alpha(alpha))
 playfield.start()
