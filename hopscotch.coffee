@@ -71,7 +71,7 @@ playfield: () ->
           actor: actor2
           return thisSprite
         paint: (context, mu) ->
-          painter?.paint(context,
+          if (painter?) then painter(context,
               interpolate(prevX, x, mu), 
               interpolate(prevY, y, mu))
           return thisSprite
@@ -106,21 +106,20 @@ imagePainter: (uri) ->
   image.src: uri
   compositeOperation: "source-over"
   alpha: 1
-  return thisPainter: {
-    paint: (context, x, y) ->
-      context.save()
-      context.globalCompositeOperation: compositeOperation
-      context.globalAlpha: alpha
-      context.drawImage(image, x, y)
-      context.restore()
-      return thisPainter
-    compositeOperation: (compositeOperation2) ->
-      compositeOperation: compositeOperation2
-      return thisPainter
-    alpha: (alpha2) ->
-      alpha: alpha2
-      return thisPainter
-  }
+  thisPainter: (context, x, y) ->
+    context.save()
+    context.globalCompositeOperation: compositeOperation
+    context.globalAlpha: alpha
+    context.drawImage(image, x, y)
+    context.restore()
+    return thisPainter
+  thisPainter.compositeOperation: (compositeOperation2) ->
+    compositeOperation: compositeOperation2
+    return thisPainter
+  thisPainter.alpha: (alpha2) ->
+    alpha: alpha2
+    return thisPainter
+  return thisPainter
 
 window.hs: {
   playfield: playfield
