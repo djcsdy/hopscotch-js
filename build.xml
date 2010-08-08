@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project default="build">
   
-  <path id="jcoffeescript.classpath" path="lib/jcoffeescript-0.7.2.jar"/>
+  <path id="jcoffeescript.classpath" path="lib/jcoffeescript-0.9.0.jar"/>
   <property name="jcoffeescript.main" value="org.jcoffeescript.Main"/>
   
   <macrodef name="compile-coffeescript">
