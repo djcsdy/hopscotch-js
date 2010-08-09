@@ -11,40 +11,34 @@ playfield = () ->
   gameTime = undefined
   context = undefined
   sprites = []
-  tickInterval = undefined
-  tickIntervalMs = 10
-  tick = ->
-    gameTime = gameTime + tickIntervalMs
-    for sprite in sprites
-      sprite.tick()
-    return
-  paintInterval = undefined
-  paint = ->
-    mu = (new Date().getTime() - gameTime) / tickIntervalMs
+  updateInterval = undefined
+  updateIntervalMs = 10
+  update = ->
+    updateTime = new Date().getTime()
+    while (gameTime + updateIntervalMs) < updateTime
+      gameTime = gameTime + updateIntervalMs
+      sprite.tick() for sprite in sprites
     if context?
+      mu = (updateTime - gameTime) / updateIntervalMs
       context.clearRect(0, 0, context.canvas.width, context.canvas.height)
-      for sprite in sprites
-        sprite.paint(context, mu)
+      sprite.paint(context, mu) for sprite in sprites
     return
   return thisPlayfield =
     context: (context2) ->
       context = context2
       return thisPlayfield
     ticksPerSecond: (ticksPerSecond) ->
-      tickIntervalMs = 1000/ticksPerSecond
+      updateIntervalMs = 1000/ticksPerSecond
       return thisPlayfield
     start: ->
-      unless tickInterval?
+      unless updateInterval?
         gameTime = new Date().getTime()
-        tickInterval = setInterval(tick, tickIntervalMs)
-        paintInterval = setInterval(paint, 0)
+        updateInterval = setInterval(update, updateIntervalMs)
       return thisPlayfield
     stop: ->
       if tickInterval?
         clearInterval(tickInterval)
         tickInterval = undefined
-        clearInterval(paintInterval)
-        paintInterval = undefined
       return thisPlayfield
     sprite: ->
       prevX = undefined
