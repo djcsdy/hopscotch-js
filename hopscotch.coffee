@@ -17,7 +17,7 @@ playfield = () ->
     updateTime = new Date().getTime()
     while (gameTime + updateIntervalMs) < updateTime
       gameTime = gameTime + updateIntervalMs
-      sprite.tick() for sprite in sprites
+      sprite.update() for sprite in sprites
     if context?
       mu = (updateTime - gameTime) / updateIntervalMs
       context.clearRect(0, 0, context.canvas.width, context.canvas.height)
@@ -27,18 +27,18 @@ playfield = () ->
     context: (context2) ->
       context = context2
       return thisPlayfield
-    ticksPerSecond: (ticksPerSecond) ->
-      updateIntervalMs = 1000/ticksPerSecond
+    updatesPerSecond: (updatesPerSecond) ->
+      updateIntervalMs = 1000/updatesPerSecond
       return thisPlayfield
     start: ->
       unless updateInterval?
         gameTime = new Date().getTime()
-        updateInterval = setInterval(update, updateIntervalMs)
+        updateInterval = setInterval(update, 0)
       return thisPlayfield
     stop: ->
-      if tickInterval?
-        clearInterval(tickInterval)
-        tickInterval = undefined
+      if updateInterval?
+        clearInterval(updateInterval)
+        updateInterval = undefined
       return thisPlayfield
     sprite: ->
       prevX = undefined
@@ -52,7 +52,7 @@ playfield = () ->
       actor = undefined
       painter = undefined
       thisSprite =
-        tick: ->
+        update: ->
           prevX = x
           prevY = y
           x = x + velocityX

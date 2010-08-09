@@ -3,7 +3,7 @@ x = canvas.width/2
 y = canvas.height/2
 playfield = hs.playfield().
     context(canvas.getContext('2d')).
-    ticksPerSecond(100)
+    updatesPerSecond(100)
 for i in [0...200]
   angle = Math.random() * Math.PI * 2
   speed = Math.random() * 10
